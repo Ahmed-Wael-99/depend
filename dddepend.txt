@@ -1,0 +1,29 @@
+Without DIP:
+
+class Employee:
+    def __init__(self):
+        self.database = MySQLDatabase()
+
+    def save(self):
+        self.database.save()
+
+
+With DIP:
+
+from abc import ABC, abstractmethod
+
+class Database(ABC):
+    @abstractmethod
+    def save(self):
+        pass
+
+class MySQLDatabase(Database):
+    def save(self):
+        return "Saved to MySQL"
+
+class Employee:
+    def __init__(self, database: Database):
+        self.database = database
+ def save(self):
+        self.database.save()
+
